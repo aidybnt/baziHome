@@ -134,13 +134,15 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.active) {
-      if (this.$route.query.active == '1') {
-        this.$message({message: '账号已成功激活，请登陆。', type: 'success'});
-      } else {
-        this.$message({message: this.$route.query.active, type: 'warning'});
+    this.$nextTick(function () {
+      if (this.$route.query.active) {
+        if (this.$route.query.active == '1') {
+          this.$message({message: '账号已成功激活，请登陆。', type: 'success'});
+        } else {
+          this.$message({message: this.$route.query.active, type: 'warning'});
+        }
       }
-    }
+    })
     // this.screenWidth = document.body.clientWidth;
     // this.screenHeight = document.body.clientHeight;
     // window.onresize = () => {
