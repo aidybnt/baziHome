@@ -1,0 +1,102 @@
+/*适配移动*/
+@media screen and (max-width: 767px) {
+    /*当屏幕尺寸小于770px时，应用下面的CSS样式*/
+    .col1-mobile {
+        height: 15px !important;
+    }
+
+    .col3 {
+        height: 18px;
+    }
+
+    .col2 {
+        height: 27px;
+    }
+
+    #home-show img {
+        max-width: 100px;
+        margin: 6px 3px 6px 3px;
+    }
+
+    #dayun {
+        margin: 6px 0 !important;
+    }
+
+    #dayun img {
+        max-width: 18px !important;
+        margin: 0 !important;
+    }
+
+    #qiyun-time .qiyun-time {
+        color: #ffffff;
+        font-size: 12px;
+        height: 1px;
+    }
+
+    #liunian .liunian-time {
+        font-size: 9px !important;
+        padding-bottom: 1px !important;
+    }
+
+    #liuyue img {
+        max-width: 24px !important;
+        margin: 0 2px !important;
+    }
+
+    #liuri img {
+        max-width: 15px !important;
+        margin: 0 1px !important;
+    }
+
+    #liushi img {
+        max-width: 18px !important;
+        margin: 0 2px !important;
+    }
+
+    .el-collapse-item__content {
+        line-height: 1.2 !important;
+    }
+
+    .el-collapse-item__header {
+        height: 9px;
+    }
+
+    .el-divider__text {
+        padding: 0 3px;
+        font-size: 12px;
+    }
+
+    .el-divider--horizontal {
+        margin: 0;
+    }
+
+    .col-33 {
+        height: 15px;
+    }
+
+    .col-60 {
+        height: 30px;
+    }
+
+    #homeRight {
+        overflow: hidden;
+        z-index: 6666 !important;
+        transform: translateZ(4002px) !important;
+        /*background-color: #327fac;*/
+        /*overflow-scrolling: touch;*/
+    }
+
+    .home-foot {
+        overflow: hidden;
+        z-index: 13 !important;
+        /*transform: translateZ(1px) !important;*/
+        /*overflow-scrolling: touch;*/
+    }
+
+    #home-head {
+        overflow: hidden;
+        z-index: 13 !important;
+        /*transform: translateZ(1px) !important;*/
+        /*overflow-scrolling: touch;*/
+    }
+}

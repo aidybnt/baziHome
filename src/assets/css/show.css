@@ -1,0 +1,58 @@
+.el-divider__text {
+    background-color: #595757;
+    color: white;
+}
+
+.el-divider {
+    background-color: #c2a36a;
+}
+
+.grid-content img {
+    max-width: 100px;
+    margin: 15px 9px 15px 9px;
+}
+
+.shadow-only-bottom {
+    box-shadow: 0 12px 12px -12px rgba(0, 0, 0, 0.3)
+}
+
+.hand {
+    cursor: pointer;
+}
+
+.hand:hover {
+    box-shadow: 0 12px 12px -6px rgba(0, 0, 0, 0.3)
+}
+
+.el-collapse {
+    border: none;
+}
+
+.el-collapse-item__header {
+    display: block;
+    background-color: #595757;
+    color: #303133;
+    border: none;
+    height: 39px;
+    line-height: 36px;
+    padding-bottom: 9px;
+}
+
+.el-collapse-item__arrow {
+    display: none;
+}
+
+.el-icon-arrow-down {
+    position: absolute;
+    top: 18px;
+    right: 0;
+}
+
+.el-collapse-item__wrap {
+    background-color: #595757;
+    border: none;
+}
+
+.el-collapse-item__content {
+    padding-bottom: 0;
+}

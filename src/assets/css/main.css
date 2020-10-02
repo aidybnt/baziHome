@@ -1,0 +1,32 @@
+body {
+    background-color: #f4f4f5;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-purple {
+    /*background-color: #f90;*/
+    /*没有高度，布局无效*/
+    min-height: 12px;
+}
+
+.bg-purple-light {
+    /*background-color: #09f;*/
+    min-height: 12px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.col1 {
+    height: 24px;
+}
+
+.col2 {
+    height: 18px;
+}
+
+.col3 {
+    height: 6px;
+}

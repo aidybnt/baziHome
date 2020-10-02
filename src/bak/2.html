@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>lunar</title>
+    <meta name="keywords" content="lunar,阳历,阴历,公历,农历"/>
+    <meta name="description" content="lunar是一个无依赖的支持阳历和阴历的日历工具库。"/>
+    <meta name="author" content="6tail"/>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="highlight.min.css">
+    <link rel="stylesheet" href="markdown.css">
+    <link rel="stylesheet" href="page.css">
+    <style type="text/css">
+        .line {
+            margin: 20px;
+        }
+
+        .line input, .line select {
+            padding: 5px;
+        }
+
+        .line .title {
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        td.active {
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+<div class="article">
+<textarea class="md">
+## 八字排盘
+
+请填写阳历（公历）时间：
+
+</textarea>
+
+    <div class="line">年：<input id="year" type="text"></div>
+    <div class="line">月：<input id="month" type="text"></div>
+    <div class="line">日：<input id="day" type="text"></div>
+    <div class="line">时：<input id="hour" type="text" placeholder="0到23"></div>
+    <div class="line">分：<input id="minute" type="text" placeholder="0到59"></div>
+    <div class="line">性别：<select id="gender">
+        <option value="1">男</option>
+        <option value="0">女</option>
+    </select></div>
+    <div class="line" id="result"></div>
+    <table id="yun">
+        <tbody>
+        <tr>
+            <td rowspan="3" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td rowspan="3"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+    <table id="liu-yue">
+        <tbody>
+        <tr>
+            <td rowspan="2" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/marked/0.8.2/marked.min.js"></script>
+<script src="common.js"></script>
+<script src="https://unpkg.com/lunar-javascript/lunar.js"></script>
+<script>
+  mdr('.md');
+</script>
+<script>
+  (function () {
+    var INDEX = {
+      daYun: 0,
+      liuNian: 0
+    };
+    var today = Solar.fromDate(new Date());
+    $('#year').val(today.getYear());
+    $('#month').val(today.getMonth());
+    $('#day').val(today.getDay());
+    $('#hour').val(today.getHour());
+    $('#minute').val(today.getMinute());
+
+    var throttle = function (fn, delay, atleast) {
+      var timer = null;
+      var previous = null;
+      return function () {
+        var now = +new Date();
+        if (!previous) previous = now;
+        if (atleast && now - previous > atleast) {
+          fn();
+          previous = now;
+          clearTimeout(timer);
+        } else {
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            fn();
+            previous = null;
+          }, delay);
+        }
+      }
+    };
+
+    var onChange = throttle(function () {
+      compute();
+    }, 20, 50);
+
+    var compute = function () {
+      try {
+        var year = $('#year').val();
+        var month = $('#month').val();
+        var day = $('#day').val();
+        var hour = $('#hour').val();
+        var minute = $('#minute').val();
+
+        var year = $('#year').val();
+        var month = $('#month').val();
+        var day = $('#day').val();
+        var gender = parseInt($('#gender').val());
+        if (year.length != 4) {
+          return;
+        }
+        if (year < 1901 || year > 2099) {
+          return;
+        }
+        if (month < 1 || month > 12) {
+          return;
+        }
+        if (day < 1 || day > 31) {
+          return;
+        }
+        if (hour < 0 || hour > 23) {
+          return;
+        }
+        if (minute < 0 || minute > 59) {
+          return;
+        }
+
+        var solar = Solar.fromYmdHms(year, month, day, hour, minute, 0);
+        var lunar = solar.getLunar();
+        var bazi = lunar.getEightChar();
+        var yun = bazi.getYun(gender);
+        var s = '<div class="title">生辰八字命盘</div><table><tbody>';
+        s += '<tr>';
+        s += '<td>公历</td>';
+        s += '<td>' + solar.getYear() + '年</td>';
+        s += '<td>' + solar.getMonth() + '月</td>';
+        s += '<td>' + solar.getDay() + '日</td>';
+        s += '<td>' + lunar.getTimeZhi() + '时</td>';
+        s += '</tr>';
+        s += '<tr>';
+        s += '<td>天干</td>';
+        s += '<td>' + bazi.getYearShiShenGan() + '</td>';
+        s += '<td>' + bazi.getMonthShiShenGan() + '</td>';
+        s += '<td>' + bazi.getDayShiShenGan() + '</td>';
+        s += '<td>' + bazi.getTimeShiShenGan() + '</td>';
+        s += '</tr>';
+        s += '<tr>';
+        s += '<td>八字</td>';
+        s += '<td>' + bazi.getYear() + '</td>';
+        s += '<td>' + bazi.getMonth() + '</td>';
+        s += '<td>' + bazi.getDay() + '</td>';
+        s += '<td>' + bazi.getTime() + '</td>';
+        s += '</tr>';
+        s += '<tr>';
+        s += '<td>地支</td>';
+        s += '<td>' + bazi.getYearShiShenZhi()[0] + '</td>';
+        s += '<td>' + bazi.getMonthShiShenZhi()[0] + '</td>';
+        s += '<td>' + bazi.getDayShiShenZhi()[0] + '</td>';
+        s += '<td>' + bazi.getTimeShiShenZhi()[0] + '</td>';
+        s += '</tr>';
+        s += '<tr>';
+        s += '<td>五行</td>';
+        s += '<td>' + bazi.getYearWuXing() + '</td>';
+        s += '<td>' + bazi.getMonthWuXing() + '</td>';
+        s += '<td>' + bazi.getDayWuXing() + '</td>';
+        s += '<td>' + bazi.getTimeWuXing() + '</td>';
+        s += '</tr>';
+        s += '<tr>';
+        s += '<td>纳音</td>';
+        s += '<td>' + bazi.getYearNaYin() + '</td>';
+        s += '<td>' + bazi.getMonthNaYin() + '</td>';
+        s += '<td>' + bazi.getDayNaYin() + '</td>';
+        s += '<td>' + bazi.getTimeNaYin() + '</td>';
+        s += '</tr>';
+        s += '<tr>';
+        s += '<td>地势</td>';
+        s += '<td>' + bazi.getYearDiShi() + '</td>';
+        s += '<td>' + bazi.getMonthDiShi() + '</td>';
+        s += '<td>' + bazi.getDayDiShi() + '</td>';
+        s += '<td>' + bazi.getTimeDiShi() + '</td>';
+        s += '</tr>';
+        s += '</tbody></table><ul>';
+        s += '<li>胎元：' + bazi.getTaiYuan() + ' (' + bazi.getTaiYuanNaYin() + ')</li><li>命宫：' + bazi.getMingGong() + ' (' + bazi.getMingGongNaYin() + ')</li><li>身宫：' + bazi.getShenGong() + ' (' + bazi.getShenGongNaYin() + ')</li>';
+        s += '<li>起运：出生';
+        if (yun.getStartYear() > 0) {
+          s += yun.getStartYear() + '年'
+        }
+        if (yun.getStartMonth() > 0) {
+          s += yun.getStartMonth() + '个月'
+        }
+        if (yun.getStartDay() > 0) {
+          s += yun.getStartDay() + '天'
+        }
+        s += '后起运，起运公历：' + yun.getStartSolar().toYmd() + '</li>';
+        s += '</ul>';
+        $('#result').html(s);
+        var daYun = yun.getDaYun();
+        if (INDEX.daYun >= daYun.length) {
+          INDEX.daYun = 0;
+        }
+        var tds = $('#yun td');
+        tds.removeClass('active').html('');
+        tds.eq(0).html('大运');
+        tds.eq(31).html('流年');
+        tds.eq(62).html('小运');
+        for (var i = 0, j = daYun.length; i < j; i++) {
+          var d = daYun[i];
+          tds.eq(1 + i).html(d.getStartYear());
+          tds.eq(11 + i).html(d.getStartAge());
+          tds.eq(21 + i).html(d.getGanZhi());
+        }
+        tds.eq(21 + INDEX.daYun).addClass('active');
+
+        var liuNian = daYun[INDEX.daYun].getLiuNian();
+        if (INDEX.liuNian >= liuNian.length) {
+          INDEX.liuNian = 0;
+        }
+        for (var i = 0, j = liuNian.length; i < j; i++) {
+          var d = liuNian[i];
+          tds.eq(32 + i).html(d.getYear());
+          tds.eq(42 + i).html(d.getAge());
+          tds.eq(52 + i).html(d.getGanZhi());
+        }
+        tds.eq(52 + INDEX.liuNian).addClass('active');
+
+        var xiaoYun = daYun[INDEX.daYun].getXiaoYun();
+        for (var i = 0, j = xiaoYun.length; i < j; i++) {
+          var d = xiaoYun[i];
+          tds.eq(63 + i).html(d.getGanZhi());
+        }
+
+        tds = $('#liu-yue td');
+        tds.removeClass('active').html('');
+        tds.eq(0).html('流月');
+        var liuYue = liuNian[INDEX.liuNian].getLiuYue();
+        for (var i = 0, j = liuYue.length; i < j; i++) {
+          var d = liuYue[i];
+          tds.eq(1 + i).html(d.getMonthInChinese() + '月');
+          tds.eq(13 + i).html(d.getGanZhi());
+        }
+      } catch (e) {
+        console.log(e);
+        $('#result').html('');
+      }
+    };
+
+    compute();
+
+    $('#year').on('input propertychange', onChange);
+    $('#month').on('input propertychange', onChange);
+    $('#day').on('input propertychange', onChange);
+    $('#hour').on('input propertychange', onChange);
+    $('#minute').on('input propertychange', onChange);
+    $('#gender').on('change', onChange);
+
+    var tds = $('#yun td');
+    tds.each(function (i) {
+      $(this).data('index', i);
+    });
+    tds.on('click', function () {
+      var index = $(this).data('index');
+      if (index >= 21 && index < 31) {
+        INDEX.daYun = index - 21;
+        onChange();
+      } else if (index >= 52 && index < 62) {
+        INDEX.liuNian = index - 52;
+        onChange();
+      }
+    });
+  })();
+</script>
+</body>
+</html>

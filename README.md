@@ -1,24 +1,29 @@
-# home
+初始化
+element-ui
 
-## Project setup
-```
-npm install
-```
+function refreshRem
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+````
+                <p>
+                  <el-input
+                      v-model="username"
+                      placeholder="请输入您的账号"
+                      clearable>
+                    <i slot="prefix" class="el-icon-user-solid"></i>
+                  </el-input>
+                </p>
+                <p>
+                  <el-input
+                      v-model="password"
+                      placeholder="请输入登陆密码"
+                      clearable>
+                    <i slot="prefix" class="el-icon-lock"></i>
+                  </el-input>
+                </p>
+                <p style="clear: both; overflow:hidden">
+                  <el-link @click="centerDialogVisible = true" type="info" class="register-info">注册账号</el-link>
+                  <el-link style="margin-left: 20px" type="info" class="register-info">忘记密码</el-link>
+                  <el-button plain style="float: right" class="login-button">登 陆</el-button>
+                </p>
+                <hr>
+````

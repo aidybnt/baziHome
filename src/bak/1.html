@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--          命盘与大运分割-->
+<el-row justify="center" type="flex" class="row-bg">
+    <el-col :span="18">
+        <div class="grid-content bg-show huanyun">
+            <el-divider content-position="right">逢甲己年立春前10天换运</el-divider>
+        </div>
+    </el-col>
+</el-row>
+<!--          起运时间-->
+<el-row justify="center" type="flex">
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show-light">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show-light">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show-light">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+            <span class="qiyun">5</span>
+        </div>
+    </el-col>
+</el-row>
+<!--          大运-->
+<el-row justify="center" type="flex" id="dayun">
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+            <img src="@/assets/img/SVG/jia.svg" alt=""><br>
+            <img src="@/assets/img/SVG/jia.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show-light">
+            <img src="@/assets/img/SVG/yi.svg" alt=""><br>
+            <img src="@/assets/img/SVG/yi.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+            <img src="@/assets/img/SVG/bing.svg" alt=""><br>
+            <img src="@/assets/img/SVG/bing.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show-light">
+            <img src="@/assets/img/SVG/ding.svg" alt=""><br>
+            <img src="@/assets/img/SVG/ding.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+            <img src="@/assets/img/SVG/wu.svg" alt=""><br>
+            <img src="@/assets/img/SVG/wu.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show-light">
+            <img src="@/assets/img/SVG/ji.svg" alt=""><br>
+            <img src="@/assets/img/SVG/ji.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+            <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+            <img src="@/assets/img/SVG/geng.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+            <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+            <img src="@/assets/img/SVG/geng.svg" alt="">
+        </div>
+    </el-col>
+    <el-col :span="2">
+        <div class="grid-content bg-show">
+            <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+            <img src="@/assets/img/SVG/geng.svg" alt="">
+        </div>
+    </el-col>
+</el-row>
+
+<!--          流年与大运分割-->
+<el-row justify="center" type="flex" class="row-bg">
+    <el-col :span="18">
+        <div class="grid-content bg-show huanyun">
+            <el-divider>年</el-divider>
+        </div>
+    </el-col>
+</el-row>
+<div class="col-33"></div>
+<!--          流年-->
+<el-row justify="center" type="flex" id="liunian">
+    <el-col :span="18">
+        <el-row justify="center" type="flex">
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/jia.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/jia.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/yi.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/yi.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/bing.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/bing.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ding.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ding.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/wu.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/wu.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ji.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ji.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+        </el-row>
+    </el-col>
+</el-row>
+
+<!--          流月与流年分割-->
+<el-row justify="center" type="flex" class="row-bg">
+    <el-col :span="18">
+        <div class="grid-content bg-show huanyun">
+            <el-divider>月</el-divider>
+        </div>
+    </el-col>
+</el-row>
+<div class="col-33"></div>
+<!--          流月-->
+<el-row justify="center" type="flex" id="liuyue">
+    <el-col :span="18">
+        <el-row justify="center" type="flex">
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/jia.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/jia.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/yi.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/yi.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/bing.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/bing.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ding.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ding.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/wu.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/wu.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ji.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ji.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+        </el-row>
+    </el-col>
+</el-row>
+
+<!--          流日与流月分割-->
+<el-row justify="center" type="flex" class="row-bg">
+    <el-col :span="18">
+        <div class="grid-content bg-show huanyun">
+            <el-divider>日</el-divider>
+        </div>
+    </el-col>
+</el-row>
+<div class="col-33"></div>
+<!--          流日-->
+<el-row justify="center" type="flex" id="liuri">
+    <el-col :span="18">
+        <el-row justify="center" type="flex">
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/jia.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/jia.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/yi.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/yi.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/bing.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/bing.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ding.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ding.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/wu.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/wu.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ji.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ji.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+        </el-row>
+        <br>
+        <el-row justify="center" type="flex">
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/jia.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/jia.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/yi.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/yi.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/bing.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/bing.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ding.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ding.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/wu.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/wu.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ji.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ji.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+        </el-row>
+        <br>
+        <el-row justify="center" type="flex">
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/jia.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/jia.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/yi.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/yi.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/bing.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/bing.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ding.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ding.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/wu.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/wu.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ji.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ji.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+        </el-row>
+    </el-col>
+
+</el-row>
+
+<!--          流时与流日分割-->
+<el-row justify="center" type="flex" class="row-bg">
+    <el-col :span="18">
+        <div class="grid-content bg-show huanyun">
+            <el-divider>时</el-divider>
+        </div>
+    </el-col>
+</el-row>
+<div class="col-33"></div>
+<!--          流时-->
+<el-row justify="center" type="flex" id="liushi">
+    <el-col :span="18">
+        <el-row justify="center" type="flex">
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/jia.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/jia.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/yi.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/yi.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/bing.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/bing.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ding.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ding.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/wu.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/wu.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show-light">
+                    <img src="@/assets/img/SVG/ji.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/ji.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+            <el-col :span="2">
+                <div class="grid-content bg-show">
+                    <img src="@/assets/img/SVG/geng.svg" alt=""><br>
+                    <img src="@/assets/img/SVG/geng.svg" alt="">
+                </div>
+            </el-col>
+        </el-row>
+    </el-col>
+</el-row>
+</body>
+</html>
