@@ -103,9 +103,6 @@ export default {
   },
   methods: {
     submitForm(doForgetForm) {
-      // console.log(this.$route.query.token);
-      // console.log(this.$route.query.created_at);
-      // console.log(this.$route.query.email);
       this.$refs[doForgetForm].validate((valid) => {
         if (valid) {
           this.doForgetLoading = true
@@ -123,23 +120,12 @@ export default {
                 }
               }).then(response => {
             this.doForgetLoading = false
-            /*打印状态*/
-            // console.group('注册请求');
-            // console.log(response);
-            // console.log('activity_expire=>' + response.data.mail.activity_expire);
-            // console.log('activity_token=>' + response.data.mail.activity_token);
-            // console.groupEnd()
-            //判断状态码
             if (response.status == 200) {
               this.$message({message: response.data.message, type: 'success'});
-              //注册成功 提示激活 跳转登陆界面
               this.$router.push({name: 'Login',})
             }
           }).catch(error => {
             this.doForgetLoading = false
-            console.group('注册错误响应');
-            console.log(error);
-            console.groupEnd()
             if (error.status == 422) {
               this.$message({message: Object.values(error.data.errors)[0][0], type: 'error'})
             }
