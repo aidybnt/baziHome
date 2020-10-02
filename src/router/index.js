@@ -88,7 +88,7 @@ const routes = [
     path: '/forget',
     name: 'Forget',
     component: Forget,
-    meta: {title: '激活账号—科学五行命理', keepAlive: true},
+    meta: {title: '找回密码—科学五行命理', keepAlive: true},
   },
   {
     path: '/doForget',
