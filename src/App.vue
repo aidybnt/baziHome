@@ -15,8 +15,13 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "assets/css/main.css";
 
-#app {
+/* element-ui 下拉框在ios上 点击两次才能选中 */
+.el-scrollbar {
+  > .el-scrollbar__bar {
+    opacity: 1 !important;
+  }
 }
+
+@import "assets/css/main.css";
 </style>

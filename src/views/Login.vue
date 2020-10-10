@@ -93,6 +93,7 @@ export default {
               {
                 'username': this.loginForm.loginUsername,
                 'password': this.loginForm.pass,
+                'user_ip': localStorage.ip
               },
               {
                 headers: {
@@ -100,30 +101,34 @@ export default {
                   'Accept': 'application/json'
                 }
               }).then(response => {
-            // console.group('登陆请求');
-            // console.log(response);
-            // console.log(response.data);
-            // console.groupEnd()
-            if (response.status == 200) {
+            if (response.status === 200) {
               this.$message({message: response.data.message, type: 'success'});
               this.loginLoading = false
-              //本地存储token
+
+              //本地存储
               localStorage.access_token = response.data.data.access_token
+              localStorage.id = response.data.user.id
+              localStorage.username = response.data.user.username
+              localStorage.TopLogoPath = response.data.user.TopLogoPath
+              localStorage.avatar = response.data.user.avatar
+              localStorage.avatarPath = response.data.user.avatarPath
+              localStorage.user_type = response.data.user.user_type
+              localStorage.APP_URL = response.data.user.APP_URL
               //登陆成功
-              this.$router.push({name: 'Home',})
+              this.$router.push({name: 'profileAdd',})
             }
             this.loginLoading = false
           }).catch(error => {
             this.loginLoading = false
-            // console.group('登陆错误响应');
-            // console.log(error);
-            // console.groupEnd()
-            if (error.status == 403) {
+            if (error.status === 403) {
               this.loading = false
               this.$message({message: error.data.message, type: 'error'});
             }
+            if (error.status === 500) {
+              this.$message({message: '服务器错误', type: 'error'})
+            }
             //超时处理
-            if (error == 'timeout') {
+            if (error === 'timeout') {
               this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'});
             }
           })
@@ -136,7 +141,7 @@ export default {
   mounted() {
     this.$nextTick(function () {
       if (this.$route.query.active) {
-        if (this.$route.query.active == '1') {
+        if (this.$route.query.active === '1') {
           this.$message({message: '账号已成功激活，请登陆。', type: 'success'});
         } else {
           this.$message({message: this.$route.query.active, type: 'warning'});

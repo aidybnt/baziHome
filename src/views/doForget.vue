@@ -120,20 +120,20 @@ export default {
                 }
               }).then(response => {
             this.doForgetLoading = false
-            if (response.status == 200) {
+            if (response.status === 200) {
               this.$message({message: response.data.message, type: 'success'});
               this.$router.push({name: 'Login',})
             }
           }).catch(error => {
             this.doForgetLoading = false
-            if (error.status == 422) {
+            if (error.status === 422) {
               this.$message({message: Object.values(error.data.errors)[0][0], type: 'error'})
             }
-            if (error.status == 403) {
+            if (error.status === 403) {
               this.$message({message: error.data.message, type: 'error'})
             }
             //超时处理
-            if (error == 'timeout') {
+            if (error === 'timeout') {
               this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'});
             }
           })

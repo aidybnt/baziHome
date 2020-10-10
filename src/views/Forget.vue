@@ -89,7 +89,7 @@ export default {
             // console.log(response);
             // console.groupEnd()
             //判断状态码
-            if (response.status == 200) {
+            if (response.status === 200) {
               this.$message({message: response.data.message, type: 'success'});
               //注册成功 提示激活 跳转登陆界面
               this.$router.push({name: 'Login',})
@@ -100,11 +100,11 @@ export default {
             // console.log(Object.values(error.data.errors)[0][0]);
             // console.log(error.data);
             // console.groupEnd()
-            if (error.status == 422) {
+            if (error.status === 422) {
               this.$message({message: error.data.message, type: 'error'});
             }
             //超时处理
-            if (error == 'timeout') {
+            if (error === 'timeout') {
               this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'});
             }
           })

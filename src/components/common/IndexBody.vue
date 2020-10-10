@@ -1,5 +1,5 @@
 <template>
-  <div id="indexBody">
+  <div id="indexBody" :style="bgc">
     <router-link to="/"><p class="title">科学五行命理</p></router-link>
     <slot></slot>
   </div>
@@ -7,7 +7,14 @@
 
 <script>
 export default {
-  name: "IndexBody"
+  name: "IndexBody",
+  data() {
+    return {
+      bgc: {
+        backgroundImage: 'url(http://data.com/storage/universe.jpg)'
+      }
+    }
+  }
 }
 </script>
 
@@ -20,7 +27,8 @@ export default {
   padding: 0;
   min-height: 100vh;
   background-color: #000;
-  background-image: url("~@/assets/img/universe.jpg");
+  /*background-image: url("~@/assets/img/universe.jpg");*/
+  /*background-image: url("");*/
   background-size: cover;
   background-position-y: 90px;
   background-position-x: center;

@@ -1,5 +1,5 @@
 /*适配移动*/
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     /*当屏幕尺寸小于770px时，应用下面的CSS样式*/
     .col1-mobile {
         height: 15px !important;
@@ -23,8 +23,8 @@
     }
 
     #dayun img {
-        max-width: 18px !important;
-        margin: 0 !important;
+        max-width: 100px !important;
+        margin: 0 5px !important;
     }
 
     #qiyun-time .qiyun-time {
@@ -39,8 +39,8 @@
     }
 
     #liuyue img {
-        max-width: 24px !important;
-        margin: 0 2px !important;
+        max-width: 100px !important;
+        margin: 0 3px !important;
     }
 
     #liuri img {
@@ -49,8 +49,8 @@
     }
 
     #liushi img {
-        max-width: 18px !important;
-        margin: 0 2px !important;
+        max-width: 100px !important;
+        margin: 0 3px !important;
     }
 
     .el-collapse-item__content {

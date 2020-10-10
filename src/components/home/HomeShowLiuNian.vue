@@ -18,7 +18,7 @@
         </template>
         <!--          流年-->
         <el-row justify="center" type="flex" id="liunian">
-          <el-col :span="18">
+          <el-col :span="20">
             <!--    年份文字-->
             <el-row justify="center" type="flex">
               <el-col :span="2">

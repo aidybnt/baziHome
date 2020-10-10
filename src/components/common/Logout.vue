@@ -7,7 +7,8 @@
         cursor: pointer;
         height: 66px;
         line-height: 66px;
-        float: left;"
+        float: left;font-size: 30px;"
+
           class="el-icon-switch-button">
       </i>
     </div>
@@ -36,12 +37,13 @@ export default {
             }
           }).then(response => {
         this.logoutLoading = false
+        this.$store.commit("whichLinkMutations", 'profileAdd')
         this.$message({message: response.data.message, type: 'success'})
-        localStorage.removeItem('access_token')
+        localStorage.clear()
         this.$router.push({name: 'Index'})
       }).catch(error => {
         this.logoutLoading = false
-        if (error.status == 401) {
+        if (error.status === 401) {
           this.$message({message: '无权操作', type: 'error'})
         }
       })

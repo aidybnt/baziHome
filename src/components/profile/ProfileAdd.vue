@@ -2,203 +2,436 @@
   <div id="profileAdd">
     <el-container>
 
-      <el-container style="height: 90vh;">
+      <el-container>
 
-        <el-main>
+        <el-main class="form-main">
 
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="90px">
 
-            <div style="width: 100%;height:100%;overflow:hidden;">
+            <div class="col4"></div>
 
-              <div style="min-width: 300px;float: left;">
+            <!--            排盘规则-->
+            <el-collapse v-model="activeNames" @change="handleChange">
+              <el-collapse-item name="1">
+                <template slot="title">
+                  <el-divider>排盘规则</el-divider>
+                </template>
+                <el-card class="box-card">
+                  <div class="text item">
+                    <h3>所选日期为公历</h3>
+                  </div>
+                  <div class="text item">
+                    <h3>
+                      立春换年
+                      交节换月
+                      子正换日
+                      正点换时
+                    </h3>
+                    <h3 style="color: #F56C6C">
+                      例如：立春时刻为14:30:02，则可能导致一天，中上午属于上一年，下午属于下一年<br>
+                      其他以此类推
+                    </h3>
+                    <h3 style="color: #F56C6C">
+                      尤其跨节点的时间，如需校对真太阳时，请自行查询
+                    </h3>
+                    <h3>
+                      分早晚子时，23:00到23:59为晚子时
+                    </h3>
+                    <h3>
+                      <el-link type="danger">具体如何确定命盘，请结合实际情况灵活调整</el-link>
+                    </h3>
 
-                <el-form-item label="性别" prop="sex">
-                  <el-radio-group v-model="ruleForm.sex">
-                    <el-radio label="男" border></el-radio>
-                    <el-radio label="女" border></el-radio>
-                  </el-radio-group>
-                </el-form-item>
+                  </div>
+                </el-card>
+              </el-collapse-item>
+            </el-collapse>
 
-                <el-form-item label="年" prop="year">
-                  <el-select
-                      v-model="ruleForm.year"
-                      placeholder="请选择年"
-                      @change="changeYear()"
-                      popper-class="year">
-                    <el-option
-                        v-for="item in years()"
-                        :key="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-
-                <el-form-item label="月" prop="month">
-                  <el-select
-                      v-model="ruleForm.month"
-                      placeholder="请选择月"
-                      @change="changeMonth()"
-                      popper-class="month">
-                    <el-option
-                        v-for="item in 12"
-                        :key="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-
-                <el-form-item label="日" prop="day">
-                  <el-select
-                      v-model="ruleForm.day"
-                      placeholder="请选择日"
-                      @change="changeDay()"
-                      popper-class="day">
-                    <el-option
-                        v-for="item in 31"
-                        :key="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-
-                <el-form-item label="时" prop="hour">
-                  <el-select
-                      v-model="ruleForm.hour"
-                      placeholder="请选择日"
-                      @change="changeHour()"
-                      popper-class="day">
-                    <el-option
-                        v-for="item in hours()"
-                        :key="item"
-                        :value="item">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-
-                <el-form-item label="分" prop="minute">
-                  <el-select
-                      v-model="ruleForm.minute"
-                      placeholder="请选择日"
-                      @change="changeMinute()"
-                      popper-class="day">
-                    <el-option
-                        v-for="item in minutes()"
-                        :key="item"
-                        :value="item"
-                        style="width:15px;float: left;">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
+            <!--            移动端命盘展示-->
+            <div class="view-mingpan-mobile">
+              <div>
+                <img :src="timeGan" alt="">
+                <img :src="dayGan" alt="">
+                <img :src="monthGan" alt="">
+                <img :src="yearGan" alt="">
+                <br>
+                <img :src="timeZhi" alt="">
+                <img :src="dayZhi" alt="">
+                <img :src="monthZhi" alt="">
+                <img :src="yearZhi" alt="">
               </div>
+            </div>
 
-              <div style="font-size: 14px; text-align: center;height: 40px;line-height: 40px;">请选择阳历（公历）时间</div>
-              <div class="view-mingpan">
-                <div>
-                  <img :src="timeGan" alt="">
-                  <img :src="dayGan" alt="">
-                  <img :src="monthGan" alt="">
-                  <img :src="yearGan" alt="">
-                  <br>
-                  <img :src="timeZhi" alt="">
-                  <img :src="dayZhi" alt="">
-                  <img :src="monthZhi" alt="">
-                  <img :src="yearZhi" alt="">
-                </div>
-              </div>
+            <div id="profileAdd-mobile">
+
+              <el-form-item label="性别" prop="sex">
+                <el-radio-group v-model="ruleForm.sex">
+                  <el-radio label="男" border></el-radio>
+                  <el-radio label="女" border></el-radio>
+                </el-radio-group>
+              </el-form-item>
+
+              <el-form-item label="年" prop="year">
+                <el-select
+                    v-model="ruleForm.year"
+                    placeholder="请选择年"
+                    @change="changeYear()"
+                    popper-class="year">
+                  <el-option
+                      v-for="item in years()"
+                      :key="item"
+                      :value="item">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="月" prop="month">
+                <el-select
+                    v-model="ruleForm.month"
+                    placeholder="请选择月"
+                    @change="changeMonth()"
+                    popper-class="month">
+                  <el-option
+                      v-for="item in 12"
+                      :key="item"
+                      :value="item">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="日" prop="day">
+                <el-select
+                    v-model="ruleForm.day"
+                    placeholder="请选择日"
+                    @change="changeDay()"
+                    popper-class="day">
+                  <el-option
+                      v-for="item in 31"
+                      :key="item"
+                      :value="item">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="时" prop="hour">
+                <el-select
+                    v-model="ruleForm.hour"
+                    placeholder="请选择日"
+                    @change="changeHour()"
+                    popper-class="day">
+                  <el-option
+                      v-for="item in hours()"
+                      :key="item"
+                      :value="item">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="分" prop="minute">
+                <el-select
+                    v-model="ruleForm.minute"
+                    placeholder="请选择日"
+                    @change="changeMinute()"
+                    popper-class="day">
+                  <el-option
+                      v-for="item in minutes()"
+                      :key="item"
+                      :value="item"
+                      style="width:15px;float: left;">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-divider class="hr"></el-divider>
+
+              <el-form-item label="命主姓名" prop="name">
+                <el-input
+                    maxlength="24"
+                    show-word-limit
+                    v-model="ruleForm.name"
+                    style="width: 217px">
+                </el-input>
+              </el-form-item>
+
+              <el-form-item label="称呼" prop="call">
+                <el-input
+                    maxlength="24"
+                    show-word-limit
+                    v-model="ruleForm.call"
+                    style="width: 217px"></el-input>
+              </el-form-item>
+
+              <el-form-item label="出生地" prop="born">
+                <el-input
+                    maxlength="60"
+                    show-word-limit
+                    v-model="ruleForm.born"
+                    style="width: 217px"></el-input>
+              </el-form-item>
+
+              <el-form-item label="常住区域" prop="area">
+                <el-select v-model="ruleForm.area"
+                           placeholder="请选择常住区域"
+                           style="width: 217px"
+                           popper-class="area">
+                  <el-option label="大陆" value="大陆"></el-option>
+                  <el-option label="台湾" value="台湾"></el-option>
+                  <el-option label="海外" value="海外"></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form label-position="top">
+                <el-form-item label="本命特征" style="padding: 0 21px">
+                  <el-checkbox-group v-model="ruleForm.type">
+                    <div style="margin-bottom: -1px;">
+                      <el-checkbox-button label="五行流通" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="本命纯阳" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="本命纯阴" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="日主受克" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="地支合空" name="type"></el-checkbox-button>
+                    </div>
+                    <div style="margin-bottom: -1px">
+                      <el-checkbox-button label="官克比劫" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="比劫克财" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="财星克印" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="印克食伤" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="食伤克官" name="type"></el-checkbox-button>
+                    </div>
+                    <div style="margin-bottom: -1px">
+                      <el-checkbox-button label="官杀被合" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="比劫被合" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="财星被合" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="印星被合" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="食伤被合" name="type"></el-checkbox-button>
+                    </div>
+                    <div style="margin-bottom: -1px">
+                      <el-checkbox-button label="官杀过旺" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="比劫成林" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="财星满盘" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="印星过旺" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="食伤过旺" name="type"></el-checkbox-button>
+                    </div>
+                    <div>
+                      <el-checkbox-button label="本命无官" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="本命无印" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="本命无比" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="本命无食" name="type"></el-checkbox-button>
+                      <el-checkbox-button label="本命无财" name="type"></el-checkbox-button>
+                    </div>
+                  </el-checkbox-group>
+                </el-form-item>
+              </el-form>
+
+
+              <el-form-item label="备注" prop="desc">
+                <el-input type="textarea"
+                          v-model="ruleForm.desc"
+                          rows="3"
+                          style="width: 217px">
+                </el-input>
+              </el-form-item>
 
             </div>
 
-            <hr class="hr">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="命主姓名" prop="name">
-                  <el-input
-                      maxlength="24"
-                      show-word-limit
-                      v-model="ruleForm.name" style="width: 75%"></el-input>
-                </el-form-item>
-              </el-col>
+            <!--=========================================普通显示-->
+            <div id="profileAdd-show">
+              <div style="width: 100%;height:100%;overflow:hidden;">
 
-              <el-col :span="12">
-                <el-form-item label="称呼" prop="call">
-                  <el-input
-                      maxlength="24"
-                      show-word-limit
-                      v-model="ruleForm.call" style="width: 75%"></el-input>
-                </el-form-item>
-              </el-col>
+                <el-row type="flex" class="row-bg">
+                  <!--                输入出生时间-->
+                  <el-col :span="12">
+                    <div class="grid-content bg-purple">
+                      <el-form-item label="性别" prop="sex">
+                        <el-radio-group v-model="ruleForm.sex">
+                          <el-radio label="男" border></el-radio>
+                          <el-radio label="女" border></el-radio>
+                        </el-radio-group>
+                      </el-form-item>
 
-              <el-col :span="12">
-                <el-form-item label="出生地" prop="born">
-                  <el-input
-                      maxlength="60"
-                      show-word-limit
-                      v-model="ruleForm.born" style="width: 75%"></el-input>
-                </el-form-item>
-              </el-col>
+                      <el-form-item label="年" prop="year">
+                        <el-select
+                            v-model="ruleForm.year"
+                            placeholder="请选择年"
+                            @change="changeYear()"
+                            popper-class="year">
+                          <el-option
+                              v-for="item in years()"
+                              :key="item"
+                              :value="item">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
 
-              <el-col :span="12">
-                <el-form-item label="常住区域" prop="area">
-                  <el-select v-model="ruleForm.area" placeholder="请选择常住区域" style="width: 75%;" popper-class="area">
-                    <el-option label="台湾" value="台湾"></el-option>
-                    <el-option label="大陆" value="大陆"></el-option>
-                    <el-option label="海外" value="海外"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
+                      <el-form-item label="月" prop="month">
+                        <el-select
+                            v-model="ruleForm.month"
+                            placeholder="请选择月"
+                            @change="changeMonth()"
+                            popper-class="month">
+                          <el-option
+                              v-for="item in 12"
+                              :key="item"
+                              :value="item">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
 
-            <el-form-item label="本命特征">
-              <el-checkbox-group v-model="ruleForm.type">
-                <div style="margin-bottom: -1px;">
-                  <el-checkbox-button label="五行流通" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="本命纯阳" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="本命纯阴" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="日主受克" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="地支合空" name="type"></el-checkbox-button>
-                </div>
-                <div style="margin-bottom: -1px">
-                  <el-checkbox-button label="官克比劫" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="比劫克财" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="财星克印" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="印克食伤" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="食伤克官" name="type"></el-checkbox-button>
-                </div>
-                <div style="margin-bottom: -1px">
-                  <el-checkbox-button label="官杀被合" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="比劫被合" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="财星被合" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="印星被合" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="食伤被合" name="type"></el-checkbox-button>
-                </div>
-                <div style="margin-bottom: -1px">
-                  <el-checkbox-button label="官杀过旺" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="比劫成林" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="财星满盘" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="印星过旺" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="食伤过旺" name="type"></el-checkbox-button>
-                </div>
-                <div>
-                  <el-checkbox-button label="本命无官" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="本命无印" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="本命无比" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="本命无食" name="type"></el-checkbox-button>
-                  <el-checkbox-button label="本命无财" name="type"></el-checkbox-button>
-                </div>
-              </el-checkbox-group>
-            </el-form-item>
+                      <el-form-item label="日" prop="day">
+                        <el-select
+                            v-model="ruleForm.day"
+                            placeholder="请选择日"
+                            @change="changeDay()"
+                            popper-class="day">
+                          <el-option
+                              v-for="item in 31"
+                              :key="item"
+                              :value="item">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
 
-            <el-form-item label="备注" prop="desc">
-              <el-input type="textarea"
-                        v-model="ruleForm.desc"
-                        rows="6"
-                        style="width: 90%;">
-              </el-input>
-            </el-form-item>
+                      <el-form-item label="时" prop="hour">
+                        <el-select
+                            v-model="ruleForm.hour"
+                            placeholder="请选择日"
+                            @change="changeHour()"
+                            popper-class="day">
+                          <el-option
+                              v-for="item in hours()"
+                              :key="item"
+                              :value="item">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
 
-            <el-form-item>
+                      <el-form-item label="分" prop="minute">
+                        <el-select
+                            v-model="ruleForm.minute"
+                            placeholder="请选择日"
+                            @change="changeMinute()"
+                            popper-class="day">
+                          <el-option
+                              v-for="item in minutes()"
+                              :key="item"
+                              :value="item"
+                              style="width:15px;float: left;">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </div>
+                  </el-col>
+
+                  <!--              命盘展示-->
+                  <el-col :span="12">
+                    <div class="grid-content bg-purple-light">
+                      <div class="view-mingpan" ref="viewMingpan">
+                        <div>
+                          <img :src="timeGan" alt="">
+                          <img :src="dayGan" alt="">
+                          <img :src="monthGan" alt="">
+                          <img :src="yearGan" alt="">
+                          <br>
+                          <img :src="timeZhi" alt="">
+                          <img :src="dayZhi" alt="">
+                          <img :src="monthZhi" alt="">
+                          <img :src="yearZhi" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </el-col>
+                </el-row>
+
+              </div>
+              <el-divider class="hr"></el-divider>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="命主姓名" prop="name">
+                    <el-input
+                        maxlength="24"
+                        show-word-limit
+                        v-model="ruleForm.name" style="width: 75%"></el-input>
+                  </el-form-item>
+                </el-col>
+
+                <el-col :span="12">
+                  <el-form-item label="称呼" prop="call">
+                    <el-input
+                        maxlength="24"
+                        show-word-limit
+                        v-model="ruleForm.call" style="width: 75%"></el-input>
+                  </el-form-item>
+                </el-col>
+
+                <el-col :span="12">
+                  <el-form-item label="出生地" prop="born">
+                    <el-input
+                        maxlength="60"
+                        show-word-limit
+                        v-model="ruleForm.born" style="width: 75%"></el-input>
+                  </el-form-item>
+                </el-col>
+
+                <el-col :span="12">
+                  <el-form-item label="常住区域" prop="area">
+                    <el-select v-model="ruleForm.area" placeholder="请选择常住区域" style="width: 75%;" popper-class="area">
+                      <el-option label="大陆" value="大陆"></el-option>
+                      <el-option label="台湾" value="台湾"></el-option>
+                      <el-option label="海外" value="海外"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-form-item label="本命特征">
+                <el-checkbox-group v-model="ruleForm.type">
+                  <div style="margin-bottom: -1px;">
+                    <el-checkbox-button label="五行流通" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="本命纯阳" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="本命纯阴" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="日主受克" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="地支合空" name="type"></el-checkbox-button>
+                  </div>
+                  <div style="margin-bottom: -1px">
+                    <el-checkbox-button label="官克比劫" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="比劫克财" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="财星克印" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="印克食伤" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="食伤克官" name="type"></el-checkbox-button>
+                  </div>
+                  <div style="margin-bottom: -1px">
+                    <el-checkbox-button label="官杀被合" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="比劫被合" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="财星被合" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="印星被合" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="食伤被合" name="type"></el-checkbox-button>
+                  </div>
+                  <div style="margin-bottom: -1px">
+                    <el-checkbox-button label="官杀过旺" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="比劫成林" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="财星满盘" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="印星过旺" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="食伤过旺" name="type"></el-checkbox-button>
+                  </div>
+                  <div>
+                    <el-checkbox-button label="本命无官" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="本命无印" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="本命无比" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="本命无食" name="type"></el-checkbox-button>
+                    <el-checkbox-button label="本命无财" name="type"></el-checkbox-button>
+                  </div>
+                </el-checkbox-group>
+              </el-form-item>
+
+              <el-form-item label="备注" prop="desc">
+                <el-input type="textarea"
+                          v-model="ruleForm.desc"
+                          rows="3"
+                          style="width: 90%;">
+                </el-input>
+              </el-form-item>
+            </div>
+            <el-form-item class="profile-button">
               <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-              <el-button @click="resetForm('ruleForm')">重置</el-button>
+              <!--              <el-button @click="resetForm('ruleForm')">重置</el-button>-->
             </el-form-item>
 
           </el-form>
@@ -212,13 +445,13 @@
 </template>
 
 <script>
-// import debounce from "lodash/debounce"
-
 export default {
   name: "ProfileAdd",
   data() {
     return {
+      activeNames: [],  // 折叠菜单默认显示
       today: '',
+      //八个字取值
       years: '',
       minutes: '',
       hours: '',
@@ -232,10 +465,6 @@ export default {
       dayZhi: '',
       timeGan: '',
       timeZhi: '',
-      year: '',
-      month: '',
-      day: '',
-      time: '',
       ruleForm: {
         sex: '男',
         year: '',
@@ -249,7 +478,6 @@ export default {
         area: '',
         type: [],
         desc: '',
-        value: '',
       },
       rules: {
         year: [
@@ -308,11 +536,15 @@ export default {
     this.ruleForm.minute = this.today.getMinute()
   },
   methods: {
+    handleChange(val) {
+      console.log(val);
+    },
     //提交表单
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          console.log(1);
+          // console.log(this.ruleForm.type);
         } else {
           console.log('error submit!!');
           return false;
@@ -336,51 +568,71 @@ export default {
     },
     //匹配图片
     getImg(e) {
-      switch (e) {
-        case e = '甲':
-          return require('@/assets/img/SVG/jia.svg')
-        case e = '乙':
-          return require('@/assets/img/SVG/yi.svg')
-        case e = '丙':
-          return require('@/assets/img/SVG/bing.svg')
-        case e = '丁':
-          return require('@/assets/img/SVG/ding.svg')
-        case e = '戊':
-          return require('@/assets/img/SVG/wu.svg')
-        case e = '己':
-          return require('@/assets/img/SVG/ji.svg')
-        case e = '庚':
-          return require('@/assets/img/SVG/geng.svg')
-        case e = '辛':
-          return require('@/assets/img/SVG/xin.svg')
-        case e = '壬':
-          return require('@/assets/img/SVG/ren.svg')
-        case e = '癸':
-          return require('@/assets/img/SVG/gui.svg')
-        case e = '子':
-          return require('@/assets/img/SVG/zi.svg')
-        case e = '丑':
-          return require('@/assets/img/SVG/chou.svg')
-        case e = '寅':
-          return require('@/assets/img/SVG/yin.svg')
-        case e = '卯':
-          return require('@/assets/img/SVG/mao.svg')
-        case e = '辰':
-          return require('@/assets/img/SVG/chen.svg')
-        case e = '巳':
-          return require('@/assets/img/SVG/si.svg')
-        case e = '午':
-          return require('@/assets/img/SVG/wu_.svg')
-        case e = '未':
-          return require('@/assets/img/SVG/wei.svg')
-        case e = '申':
-          return require('@/assets/img/SVG/shen.svg')
-        case e = '酉':
-          return require('@/assets/img/SVG/you.svg')
-        case e = '戌':
-          return require('@/assets/img/SVG/xu.svg')
-        case e = '亥':
-          return require('@/assets/img/SVG/hai.svg')
+      if (e === '甲') {
+        return require('@/assets/img/SVG/jia.svg')
+      }
+      if (e === '乙') {
+        return require('@/assets/img/SVG/yi.svg')
+      }
+      if (e === '丙') {
+        return require('@/assets/img/SVG/bing.svg')
+      }
+      if (e === '丁') {
+        return require('@/assets/img/SVG/ding.svg')
+      }
+      if (e === '戊') {
+        return require('@/assets/img/SVG/wu.svg')
+      }
+      if (e === '己') {
+        return require('@/assets/img/SVG/ji.svg')
+      }
+      if (e === '庚') {
+        return require('@/assets/img/SVG/geng.svg')
+      }
+      if (e === '辛') {
+        return require('@/assets/img/SVG/xin.svg')
+      }
+      if (e === '壬') {
+        return require('@/assets/img/SVG/ren.svg')
+      }
+      if (e === '癸') {
+        return require('@/assets/img/SVG/gui.svg')
+      }
+      if (e === '子') {
+        return require('@/assets/img/SVG/zi.svg')
+      }
+      if (e === '丑') {
+        return require('@/assets/img/SVG/chou.svg')
+      }
+      if (e === '寅') {
+        return require('@/assets/img/SVG/yin.svg')
+      }
+      if (e === '卯') {
+        return require('@/assets/img/SVG/mao.svg')
+      }
+      if (e === '辰') {
+        return require('@/assets/img/SVG/chen.svg')
+      }
+      if (e === '巳') {
+        return require('@/assets/img/SVG/si.svg')
+      }
+      if (e === '午') {
+        return require('@/assets/img/SVG/wu_.svg')
+      }
+      if (e === '未') {
+        return require('@/assets/img/SVG/wei.svg')
+      }
+      if (e === '申') {
+        return require('@/assets/img/SVG/shen.svg')
+      }
+      if (e === '酉') {
+        return require('@/assets/img/SVG/you.svg')
+      }
+      if (e === '戌') {
+        return require('@/assets/img/SVG/xu.svg')
+      }
+      if (e === '亥') {
+        return require('@/assets/img/SVG/hai.svg')
       }
     },
     //改变年
@@ -462,14 +714,18 @@ export default {
     this.timeGan = this.getImg(this.computeBaZi().getTimeGan())
     this.timeZhi = this.getImg(this.computeBaZi().getTimeZhi())
   },
+  destroyed() {
+  },
 }
 </script>
 
 <style scoped>
-@import "~@/assets/css/profile.css";
-
 #profileAdd {
   width: 100%;
+}
+
+#profileAdd .el-container {
+  background-color: #bdc0c1;
 }
 
 .el-header {
@@ -494,14 +750,14 @@ export default {
 }
 
 #profileAdd .view-mingpan {
-  min-width: 350px;
-  height: 290px;
-  padding: 15px;
+  min-width: 360px;
+  height: 330px;
+  /*padding: 15px;*/
   box-sizing: border-box;
   text-align: center;
   font-size: 14px;
   color: white;
-  margin-left: 30px;
+  /*margin-left: 30px;*/
   background-color: #595757;
   float: left;
   display: flex;
@@ -545,6 +801,54 @@ export default {
 }
 
 .hr {
-  margin: 15px 0 30px 0;
+  margin: 15px 0 24px 0;
+}
+
+#profileAdd >>> .el-collapse-item__header, >>> .el-collapse-item__wrap {
+  background-color: white !important;
+}
+
+#profileAdd >>> .el-collapse-item__header {
+  /*border-bottom: 1px solid #ebeef5;*/
+}
+
+#profileAdd .view-mingpan-mobile {
+  display: none;
+  width: 100%;
+  margin-bottom: 24px;
+  background-color: #595757;
+  padding: 24px 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#profileAdd .view-mingpan-mobile img {
+  width: 54px;
+  margin: 3px 6px;
+}
+
+#profileAdd-show >>> .el-checkbox-button__inner {
+  padding: 15px 26px;
+  font-size: 15px;
+}
+
+#profileAdd-mobile >>> .el-checkbox-button__inner {
+  padding: 15px 6px;
+  font-size: 12px;
+}
+
+#profileAdd-mobile {
+  display: none;
+}
+
+#profileAdd .el-collapse {
+  margin-bottom: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
 }
 </style>

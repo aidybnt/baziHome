@@ -1,0 +1,19 @@
+.box-card {
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+.clearfix {
+    font-size: 15px;
+    font-weight: bold
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both
+}

@@ -19,7 +19,7 @@
         <div class="col1 col1-mobile"></div>
         <!--          流时-->
         <el-row justify="center" type="flex" id="liushi">
-          <el-col :span="14">
+          <el-col :span="18">
             <el-row justify="center" type="flex">
               <el-col :span="2">
                 <div class="grid-content bg-show">

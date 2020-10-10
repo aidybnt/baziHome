@@ -12,7 +12,10 @@ import ProfileList from "@/components/profile/ProfileList";
 import ProfileConfig from "@/components/profile/ProfileConfig";
 
 Vue.use(VueRouter)
-
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 const routes = [
   {
     path: '/',
@@ -32,7 +35,7 @@ const routes = [
   },
   {
     path: '/profile',
-    name: 'ProfileShow',
+    name: 'profileShow',
     component: ProfileShow,
     meta: {
       title: '个人资料—科学五行命理',
@@ -42,7 +45,7 @@ const routes = [
     children: [
       {
         path: '/profileAdd',
-        name: 'ProfileAdd',
+        name: 'profileAdd',
         component: ProfileAdd,
         meta: {
           title: '添加命盘—科学五行命理',
@@ -52,7 +55,7 @@ const routes = [
       },
       {
         path: '/profileList',
-        name: 'ProfileList',
+        name: 'profileList',
         component: ProfileList,
         meta: {
           title: '命盘列表—科学五行命理',
@@ -62,7 +65,7 @@ const routes = [
       },
       {
         path: '/profileConfig',
-        name: 'ProfileConfig',
+        name: 'profileConfig',
         component: ProfileConfig,
         meta: {
           title: '添加命盘—科学五行命理',

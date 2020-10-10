@@ -5,11 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    dom: '',
+    dom: '',        //太极图动画
     access_token: '',
     refresh_token: '',
-    // logoutLoading: '',
-    showRightSide: true
+    whichLink: 'profileAdd',
+    TopLogoPath: '',
+    homeHeadLogoHeight: ''
   },
   //异步操作在这里
   actions: {},
@@ -17,6 +18,16 @@ export default new Vuex.Store({
   mutations: {
     changerShowRightSide(state) {
       state.showRightSide = !state.showRightSide
+    },
+    //命盘展示返回上一次的操作界面
+    whichLinkMutations(state, v) {
+      state.whichLink = v
+    },
+    TopLogoPathMutations(state, v) {
+      state.TopLogoPath = v
+    },
+    homeHeadLogoHeightMutations(state, v) {
+      state.homeHeadLogoHeight = v
     }
   },
   getters: {},

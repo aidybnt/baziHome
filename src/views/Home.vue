@@ -1,14 +1,11 @@
 <template>
   <div id="home">
-    <div style="height: 99px"></div>
-
-    <HomeRight></HomeRight>
-
-    <HomeHead>
+    <HomeHead @imgLoad="headHeightChange">
       <template v-slot:left>
         <logout></logout>
       </template>
     </HomeHead>
+    <div :style="height"></div>
 
     <HomeShow>
       <template v-slot:ShengChen>
@@ -34,7 +31,7 @@
       </template>
     </HomeShow>
 
-    <HomeFoot></HomeFoot>
+    <Foot style="background-color: #595757;"></Foot>
 
   </div>
 </template>
@@ -42,8 +39,6 @@
 <script>
 import Logout from "@/components/common/Logout";
 import HomeHead from "@/components/home/HomeHead";
-import HomeFoot from "@/components/home/HomeFoot";
-import HomeRight from "@/components/home/HomeRight";
 import HomeShow from "@/components/home/HomeShow";
 import HomeShowRiZhu from "@/components/home/HomeShowRiZhu";
 import HomeShowShengChen from "@/components/home/HomeShowShengChen";
@@ -52,43 +47,53 @@ import HomeShowLiuNian from "@/components/home/HomeShowLiuNian";
 import HomeShowLiuYue from "@/components/home/HomeShowLiuYue";
 import HomeShowLiuRi from "@/components/home/HomeShowLiuRi";
 import HomeShowLiuShi from "@/components/home/HomeShowLiuShi";
+import Foot from "@/components/common/Foot";
 
 export default {
   name: 'Home',
-  components: {HomeShowLiuShi, HomeShowLiuRi, HomeShowLiuYue, HomeShowLiuNian, HomeShowDaYun, HomeShowShengChen, HomeShowRiZhu, HomeShow, HomeRight, HomeFoot, HomeHead, Logout},
+  components: {
+    Foot,
+    HomeShowLiuShi,
+    HomeShowLiuRi,
+    HomeShowLiuYue,
+    HomeShowLiuNian,
+    HomeShowDaYun,
+    HomeShowShengChen,
+    HomeShowRiZhu,
+    HomeShow,
+    HomeHead,
+    Logout
+  },
   data() {
     return {
+      height: {
+        height: '66px'
+      },
       cancelable: false,
       logoutLoading: false,
       message: '',
     }
   },
-  //监听子组件异步完成，通过VUEX
-  //退出登陆监听 调出message提示
-  watch: {
-    // deep: true,
-    // immediate: true,
-    // '$store.state.logoutLoading': function () {
-    //   if (this.$store.state.logoutLoading == false) {
-    //     this.logoutLoading = this.$store.state.logoutLoading
-    //   }
-    //   this.$nextTick(function () {
-    //     this.$store.state.logoutLoading = ''
-    //   })
-    // },
-  },
   methods: {
-    // logoutClick() {
-    //   this.logoutLoading = true
-    //   this.$refs.logout.logout()
-    // },
-    // rightSideClick() {
-    //   this.$store.commit('changerShowRightSide')
-    // },
     handleChange(val) {
       console.log(val);
-    }
+    },
+    headHeightChange(imgHeight) {
+      this.height.height = imgHeight + 24 + 'px'
+    },
   },
+  activated() {
+    this.height.height = this.$store.state.homeHeadLogoHeight + 24 + 'px'
+  },
+  // watch: {
+  //   '$store.state.homeHeadLogoHeight': {
+  //     handler: function (n, o) {
+  //       this.height.height = n + 24 + 'px'
+  //     },
+  //     deep: true,
+  //     immediate: true,
+  //   },
+  // },
 }
 </script>
 <style>

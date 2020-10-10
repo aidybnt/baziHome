@@ -75,7 +75,7 @@
         </el-col>
       </el-row>
     </IndexBody>
-    <foot></foot>
+    <Foot></Foot>
   </div>
 </template>
 
@@ -142,7 +142,8 @@ export default {
               {
                 'username': this.registerForm.registerUsername,
                 'password': this.registerForm.pass,
-                'email': this.registerForm.email
+                'email': this.registerForm.email,
+                'user_ip': localStorage.ip
               },
               {
                 headers: {
@@ -151,32 +152,21 @@ export default {
                 }
               }).then(response => {
             this.registerLoading = false
-            /*打印状态*/
-            // console.group('注册请求');
-            // console.log(response);
-            // console.log('activity_expire=>' + response.data.mail.activity_expire);
-            // console.log('activity_token=>' + response.data.mail.activity_token);
-            // console.groupEnd()
-            //判断状态码
-            if (response.status == 200) {
+            if (response.status === 200) {
               this.$message({message: response.data.message, type: 'success'});
               //注册成功 提示激活 跳转登陆界面
               this.$router.push({name: 'Login',})
             }
           }).catch(error => {
             this.registerLoading = false
-            // console.group('注册错误响应');
-            // console.log(Object.values(error.data.errors)[0][0]);
-            // console.log(error);
-            // console.groupEnd()
-            if (error.status == 422) {
+            if (error.status === 422) {
               this.$message({message: Object.values(error.data.errors)[0][0], type: 'error'})
             }
-            if (error.status == 500) {
-              this.$message({message: '服务器错误，请重试。', type: 'error'})
+            if (error.status === 500) {
+              this.$message({message: '服务器错误', type: 'error'})
             }
             //超时处理
-            if (error == 'timeout') {
+            if (error === 'timeout') {
               this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'})
             }
           })
