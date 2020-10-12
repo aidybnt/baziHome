@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const instance = axios.create({
   // baseURL: 'http://data.com/api/',
-  baseURL: 'http://192.168.1.163/api/',
-  // baseURL: 'https://data.water555.xyz/api/',
+  // baseURL: 'http://192.168.1.163/api/',
+  baseURL: 'https://data.water555.xyz/api/',
   // timeout: 3000
   timeout: 60000
 })
