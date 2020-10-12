@@ -41,6 +41,13 @@
     text-align: center !important;
 }
 
+.sub span {
+    /*background-color: pink;*/
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+}
+
 /*适配移动*/
 @media screen and (max-width: 768px) {
     .profile-foot {

@@ -40,7 +40,7 @@ export default {
       this.topLogoImgUrl = localStorage.APP_URL + '/' + localStorage.TopLogoPath
       let cut = this.topLogoImgUrl.substring(this.topLogoImgUrl.length - 3)
       if (cut !== 'png') {
-        this.topLogoImgUrl = 'http://data.com/storage/toplogo.png'
+        this.topLogoImgUrl = localStorage.APP_URL + '/storage/toplogo.png'
       } else {
         this.topLogoImgUrl = localStorage.APP_URL + '/' + localStorage.TopLogoPath
       }

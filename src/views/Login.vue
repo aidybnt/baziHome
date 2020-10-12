@@ -110,6 +110,7 @@ export default {
               localStorage.id = response.data.user.id
               localStorage.username = response.data.user.username
               localStorage.TopLogoPath = response.data.user.TopLogoPath
+              localStorage.TopLogo = response.data.user.TopLogo
               localStorage.avatar = response.data.user.avatar
               localStorage.avatarPath = response.data.user.avatarPath
               localStorage.user_type = response.data.user.user_type

@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%">
     <el-container>
-      <el-header style="height: auto !important; padding-bottom: 24px">
+      <el-header style="height: auto !important;">
         <el-avatar :size="66" :src="imgPath"></el-avatar>
         <el-divider>{{ username }}</el-divider>
       </el-header>

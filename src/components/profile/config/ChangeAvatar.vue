@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import {post} from "@/utils/request";
 
 export default {
@@ -81,63 +80,27 @@ export default {
               this.buttonDisabled = true
               this.$refs.avatarUpload.clearFiles()
             }
-            console.log(response);
-            this.avatarLoading = false
-          })
-          .catch(error => {
-            if (error.response.status === 422) {
-              this.$message({message: error.response.data.errors.avatar[0], type: 'error'});
-            }
-            if (error.response.status === 403) {
-              this.$message({message: error.response.data.message, type: 'error'});
-            }
-            if (error.response.status === 500) {
-              this.$message({message: '服务器错误，请重试。', type: 'error'})
-            }
-            //超时处理
-            if (error.response.status === 'timeout') {
-              this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'})
-            }
-            console.log(error.response);
-            this.avatarLoading = false
-          })
-      /*
-      axios.post('http://192.168.1.163/api/avatar',
-          // 'https://data.water555.xzy/api/avatar',
-          formData,
-          {
-            headers: {'Authorization': 'Bearer ' + localStorage.access_token, 'Content-Type': 'application/json', 'Accept': 'application/json'}
-          })
-          .then(response => {
-            if (response.status === 200) {
-              this.$message({message: response.data.message, type: 'success'})
-              localStorage.avatar = response.data.avatar
-              localStorage.avatarPath = response.data.avatarPath
-              this.imgPath = localStorage.APP_URL + response.data.avatar
-              this.$emit('avatarEvent', this.imgPath)
-            }
             // console.log(response);
             this.avatarLoading = false
           })
           .catch(error => {
-            if (error.response.status === 422) {
-              this.$message({message: error.response.data.errors.avatar[0], type: 'error'});
+            console.log(error);
+            if (error.status === 422) {
+              this.$message({message: error.data.errors.avatar[0], type: 'error'});
             }
-            if (error.response.status === 403) {
-              this.$message({message: error.response.data.message, type: 'error'});
+            if (error.status === 403) {
+              this.$message({message: error.data.message, type: 'error'});
             }
-            if (error.response.status === 500) {
+            if (error.status === 500) {
               this.$message({message: '服务器错误，请重试。', type: 'error'})
             }
             //超时处理
-            if (error.response.status === 'timeout') {
+            if (error.status === 'timeout') {
               this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'})
             }
             // console.log(error.response);
             this.avatarLoading = false
           })
-
-       */
     },
   }
 }

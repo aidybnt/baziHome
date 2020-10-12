@@ -1,7 +1,7 @@
 <template>
   <div v-if="hideCopy">
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
+      <div slot="header" class="clearfix sub">
         <span slot="reference">隐藏底部版权</span>
         <Subscription></Subscription>
       </div>
