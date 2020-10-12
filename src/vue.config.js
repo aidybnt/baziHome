@@ -14,6 +14,10 @@ module.exports = {
       }
     },
     pluginOptions: {},
-    modules: true
+    modules: true,
+    externals: {
+      // 'element-ui': 'element-ui',
+      // 'vue': 'Vue',
+    }
   },
 };

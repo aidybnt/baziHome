@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import 'element-ui/lib/theme-chalk/index.css';
-import 'element-ui/lib/theme-chalk/display.css';
+// import 'element-ui/lib/theme-chalk/index.css';
+// import 'element-ui/lib/theme-chalk/display.css';
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -31,7 +31,7 @@ Object.defineProperty(Vue.prototype, 'HolidayUtil', {value: HolidayUtil});
 //按需引入elementUI
 import {
   Pagination,
-  Dialog,
+  // Dialog,
   // Autocomplete,
   // Dropdown,
   // DropdownMenu,
@@ -114,7 +114,7 @@ import {
 Vue.use(Avatar);
 Vue.use(Drawer);
 Vue.use(Pagination);
-Vue.use(Dialog);
+// Vue.use(Dialog);
 // Vue.use(Autocomplete);
 // Vue.use(Dropdown);
 // Vue.use(DropdownMenu);

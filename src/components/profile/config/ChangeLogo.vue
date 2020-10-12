@@ -80,6 +80,9 @@ export default {
               localStorage.TopLogo = response.data.TopLogo
               this.imgPath = localStorage.APP_URL + '/' + response.data.TopLogoPath
               this.$store.commit('TopLogoPathMutations', this.imgPath)
+              this.$refs.topLogoUpload.clearFiles()
+              this.imgFile = []
+              this.buttonDisabled = true
             }
             this.TopLogoLoading = false
           })

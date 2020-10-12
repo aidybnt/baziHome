@@ -537,16 +537,16 @@ export default {
   },
   methods: {
     handleChange(val) {
-      console.log(val);
+      // console.log(val);
     },
     //提交表单
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(1);
+          // console.log(1);
           // console.log(this.ruleForm.type);
         } else {
-          console.log('error submit!!');
+          // console.log('error submit!!');
           return false;
         }
       });
@@ -723,21 +723,42 @@ export default {
 #profileAdd {
   width: 100%;
 }
-
+#profileAdd h3{
+  font-weight: 540;
+}
 #profileAdd .el-container {
   background-color: #bdc0c1;
 }
 
-.el-header {
+>>> .el-collapse-item__header {
+  border: none;
+  border: 0;
+}
+
+>>> .el-divider {
+  background-color: #c2a36a;
+}
+
+>>> .el-icon-arrow-right {
+  display: none;
+}
+
+>>> .el-collapse {
+  border: none;
+  border: 0;
+}
+
+>>> .el-header {
   background-color: #B3C0D1;
   color: #333;
   line-height: 30px;
   height: 30px;
   text-align: center;
   font-size: 15px;
+  border: none;
 }
 
-.el-main {
+>>> .el-main {
   padding-top: 0;
   background-color: #bdc0c1;
 }
@@ -776,15 +797,16 @@ export default {
   margin: 3px 6px;
 }
 
-.el-date-picker__header, .el-date-picker__header--bordered {
+>>> .el-date-picker__header, .el-date-picker__header--bordered {
   display: none !important;
+  border: none;
 }
 
 >>> .el-form-item__label {
   font-size: 15px;
 }
 
-.el-form-item {
+>>> .el-form-item {
   margin-bottom: 18px;
 }
 
@@ -798,6 +820,11 @@ export default {
   line-height: 36px;
   letter-spacing: 2px;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+>>> .el-divider__text {
+  background-color: #595757;
+  color: white;
 }
 
 .hr {

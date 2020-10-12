@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     handleChange(val) {
-      console.log(val);
+      // console.log(val);
     },
     headHeightChange(imgHeight) {
       this.height.height = imgHeight + 24 + 'px'

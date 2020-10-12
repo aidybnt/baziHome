@@ -1,16 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home.vue'
-import Index from "@/views/Index";
-import Login from "@/views/Login";
-import Register from "@/views/Register";
-import Forget from "@/views/Forget";
-import doForget from "@/views/doForget";
-import ProfileShow from "@/components/profile/ProfileShow";
-import ProfileAdd from "@/components/profile/ProfileAdd";
-import ProfileList from "@/components/profile/ProfileList";
-import ProfileConfig from "@/components/profile/ProfileConfig";
-
+// import Home from '@/views/Home.vue'
+// import Index from "@/views/Index";
+// import Login from "@/views/Login";
+// import Register from "@/views/Register";
+// import Forget from "@/views/Forget";
+// import doForget from "@/views/doForget";
+// import ProfileShow from "@/components/profile/ProfileShow";
+// import ProfileAdd from "@/components/profile/ProfileAdd";
+// import ProfileList from "@/components/profile/ProfileList";
+// import ProfileConfig from "@/components/profile/ProfileConfig";
+const Home = () => import('@/views/Home')
+const Index = () => import('@/views/Index')
+const Login = () => import('@/views/Login')
+const Register = () => import('@/views/Register')
+const Forget = () => import('@/views/Forget')
+const doForget = () => import('@/views/doForget')
+const ProfileShow = () => import('@/components/profile/ProfileShow')
+const ProfileAdd = () => import('@/components/profile/ProfileAdd')
+const ProfileList = () => import('@/components/profile/ProfileList')
+const ProfileConfig = () => import('@/components/profile/ProfileConfig')
 Vue.use(VueRouter)
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {

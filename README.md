@@ -27,3 +27,8 @@ function refreshRem
                 </p>
                 <hr>
 ````
+
+
+
+打包分析
+npm run build -- --report

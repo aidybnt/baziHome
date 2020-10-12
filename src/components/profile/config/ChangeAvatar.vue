@@ -80,11 +80,9 @@ export default {
               this.buttonDisabled = true
               this.$refs.avatarUpload.clearFiles()
             }
-            // console.log(response);
             this.avatarLoading = false
           })
           .catch(error => {
-            console.log(error);
             if (error.status === 422) {
               this.$message({message: error.data.errors.avatar[0], type: 'error'});
             }
@@ -98,7 +96,6 @@ export default {
             if (error.status === 'timeout') {
               this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'})
             }
-            // console.log(error.response);
             this.avatarLoading = false
           })
     },
