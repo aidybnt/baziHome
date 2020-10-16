@@ -30,3 +30,7 @@ a {
 .col3 {
     height: 6px;
 }
+
+.el-message {
+    min-width: 300px;
+}

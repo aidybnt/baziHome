@@ -14,7 +14,7 @@
       <el-col :xs="4" :sm="4" :md="2" :lg="2" :xl="1">
         <div class="grid-content bg-purple">
           <router-link to="/home">
-            <i class="el-icon-s-home"></i>
+            <i class="el-icon-s-home" :style="homeButton"></i>
           </router-link>
         </div>
       </el-col>
@@ -32,6 +32,9 @@ export default {
     return {
       topLogoImgUrl: '',
       imgHeight: '',
+      homeButton: {
+        display: 'none'
+      }
     }
   },
   methods: {
@@ -57,6 +60,9 @@ export default {
       this.topLogoImgUrl = this.$store.state.TopLogoPath
       this.imgLoad()
     },
+    '$store.state.homeLinkButton': function () {
+      this.homeButton.display = ''
+    }
   },
   mounted() {
     this.isTopLogoImgUrl()

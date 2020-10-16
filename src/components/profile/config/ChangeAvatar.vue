@@ -34,7 +34,7 @@ export default {
       imgPath: '',
       imgFile: '',
       buttonDisabled: true,
-      fileList: []
+      fileList: [],
     };
   },
   methods: {
@@ -71,8 +71,8 @@ export default {
       post('avatar', formData,
           {headers: {'Authorization': 'Bearer ' + localStorage.access_token, 'Content-Type': 'application/json', 'Accept': 'application/json'}})
           .then(response => {
+            this.avatarLoading = false
             if (response.status === 200) {
-              this.$message({message: response.data.message, type: 'success'})
               localStorage.avatar = response.data.avatar
               localStorage.avatarPath = response.data.avatarPath
               this.imgPath = localStorage.APP_URL + response.data.avatar
@@ -80,22 +80,8 @@ export default {
               this.buttonDisabled = true
               this.$refs.avatarUpload.clearFiles()
             }
-            this.avatarLoading = false
           })
           .catch(error => {
-            if (error.status === 422) {
-              this.$message({message: error.data.errors.avatar[0], type: 'error'});
-            }
-            if (error.status === 403) {
-              this.$message({message: error.data.message, type: 'error'});
-            }
-            if (error.status === 500) {
-              this.$message({message: '服务器错误，请重试。', type: 'error'})
-            }
-            //超时处理
-            if (error.status === 'timeout') {
-              this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'})
-            }
             this.avatarLoading = false
           })
     },

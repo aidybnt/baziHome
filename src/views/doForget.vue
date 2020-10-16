@@ -113,30 +113,16 @@ export default {
                 'created_at': this.$route.query.created_at,
                 'email': this.$route.query.email,
               },
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
+              {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}})
+              .then(response => {
+                this.doForgetLoading = false
+                if (response.status === 200) {
+                  this.$router.push({name: 'Login',})
                 }
-              }).then(response => {
-            this.doForgetLoading = false
-            if (response.status === 200) {
-              this.$message({message: response.data.message, type: 'success'});
-              this.$router.push({name: 'Login',})
-            }
-          }).catch(error => {
-            this.doForgetLoading = false
-            if (error.status === 422) {
-              this.$message({message: Object.values(error.data.errors)[0][0], type: 'error'})
-            }
-            if (error.status === 403) {
-              this.$message({message: error.data.message, type: 'error'})
-            }
-            //超时处理
-            if (error === 'timeout') {
-              this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'});
-            }
-          })
+              })
+              .catch(error => {
+                this.doForgetLoading = false
+              })
         } else {
           return false;
         }

@@ -6,12 +6,14 @@
 
         <el-main class="form-main">
 
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="90px">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="90px"
+                   v-loading="loading"
+                   element-loading-text="拼命加载中">
 
             <div class="col4"></div>
 
             <!--            排盘规则-->
-            <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse v-model="activeNames">
               <el-collapse-item name="1">
                 <template slot="title">
                   <el-divider>排盘规则</el-divider>
@@ -64,7 +66,7 @@
             <div id="profileAdd-mobile">
 
               <el-form-item label="性别" prop="sex">
-                <el-radio-group v-model="ruleForm.sex">
+                <el-radio-group v-model="ruleForm.sex" @change="sexChange">
                   <el-radio label="男" border></el-radio>
                   <el-radio label="女" border></el-radio>
                 </el-radio-group>
@@ -241,7 +243,7 @@
                   <el-col :span="12">
                     <div class="grid-content bg-purple">
                       <el-form-item label="性别" prop="sex">
-                        <el-radio-group v-model="ruleForm.sex">
+                        <el-radio-group v-model="ruleForm.sex" @change="sexChange">
                           <el-radio label="男" border></el-radio>
                           <el-radio label="女" border></el-radio>
                         </el-radio-group>
@@ -430,8 +432,8 @@
               </el-form-item>
             </div>
             <el-form-item class="profile-button">
-              <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-              <!--              <el-button @click="resetForm('ruleForm')">重置</el-button>-->
+              <el-button v-if="!this.$store.state.editLink" type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+              <el-button v-if="this.$store.state.editLink" type="success" @click="submitForm('ruleForm')">提交修改</el-button>
             </el-form-item>
 
           </el-form>
@@ -445,16 +447,18 @@
 </template>
 
 <script>
+import {post} from "@/utils/request";
+
 export default {
   name: "ProfileAdd",
   data() {
     return {
+      loading: false,
       activeNames: [],  // 折叠菜单默认显示
       today: '',
+      requestUrl: 'store',
+      baZiTime: '',
       //八个字取值
-      years: '',
-      minutes: '',
-      hours: '',
       solar: '',
       lunar: '',
       yearGan: '',
@@ -473,11 +477,12 @@ export default {
         hour: '',
         minute: '',
         name: '',
-        call: '',
+        call: '王先生',
         born: '',
         area: '',
         type: [],
         desc: '',
+        id: localStorage.id,
       },
       rules: {
         year: [
@@ -502,6 +507,7 @@ export default {
           {min: 1, max: 24, message: '长度在 1 到 24 个字符', trigger: 'blur'}
         ],
         call: [
+          {required: true, message: '最少填一个命主称呼', trigger: 'change'},
           {min: 1, max: 24, message: '长度在 1 到 24 个字符', trigger: 'blur'}
         ],
         born: [
@@ -534,19 +540,67 @@ export default {
     this.ruleForm.day = this.today.getDay()
     this.ruleForm.hour = this.today.getHour()
     this.ruleForm.minute = this.today.getMinute()
+
+    if (localStorage.getItem('editData')) {
+      let editData = JSON.parse(localStorage.getItem('editData'))
+      this.ruleForm = editData
+      this.ruleForm.type = JSON.parse(editData.type)
+      this.requestUrl = 'edit'
+    }
   },
   methods: {
-    handleChange(val) {
-      // console.log(val);
+    sexChange() {
+      //计算默认称呼
+      if (this.ruleForm.sex === '男') {
+        this.ruleForm.call = '唐先生'
+      }
+      if (this.ruleForm.sex === '女') {
+        this.ruleForm.call = '周女士'
+      }
     },
     //提交表单
     submitForm(formName) {
+      this.loading = true
+      this.ruleForm.baZiTime = this.ruleForm.year + '-' + this.ruleForm.month + '-' + this.ruleForm.day + ' ' + this.ruleForm.hour + ':' + this.ruleForm.minute
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // console.log(1);
           // console.log(this.ruleForm.type);
+
+          post('mingpan/' + this.requestUrl,
+              this.ruleForm,
+              {headers: {'Authorization': 'Bearer ' + localStorage.access_token, 'Content-Type': 'application/json', 'Accept': 'application/json'}})
+              .then(response => {
+                if (response.status === 200) {
+                  if (localStorage.getItem('tableData') && !localStorage.getItem('editData')) {
+                    //新数据压入tableData
+                    let tableDta = JSON.parse(localStorage.getItem('tableData'))
+                    tableDta.splice(14, 1)
+                    tableDta.unshift(JSON.parse(response.data.data))
+                    localStorage.setItem('tableData', JSON.stringify(tableDta))
+                  }
+                  if (localStorage.getItem('tableData') && this.$store.state.editLink) {
+                    //更新数组数据
+                    let index = parseInt(localStorage.getItem('tableIndex'))
+                    let tableData = JSON.parse(localStorage.getItem('tableData'))
+                    // let responseData = JSON.parse(response.data.data)
+                    tableData.splice(index, 1, response.data.data)
+                    localStorage.setItem('tableData', JSON.stringify(tableData))
+                    localStorage.setItem('editData', '')
+                    this.$store.commit('editLinkMutations', false)
+                  }
+                  this.$router.push('profileList')
+                  if (!this.$store.state.homeLinkButton) {
+                    this.$store.commit('homeLinkButtonMutations', 1)
+                  }
+                } else {
+                  console.log(111);
+                }
+                this.loading = false
+              })
+              .catch(error => {
+                this.loading = false
+              })
         } else {
-          // console.log('error submit!!');
           return false;
         }
       });
@@ -691,16 +745,6 @@ export default {
       this.timeZhi = this.getImg(this.computeBaZi().getTimeZhi())
     },
   },
-  computed: {
-    //计算男女
-    gender: function () {
-      if (this.ruleForm.sex === '男') {
-        return 1
-      } else {
-        return 0
-      }
-    },
-  },
   mounted() {
     //初始化
     this.yearGan = this.getImg(this.computeBaZi().getYearGanByLiChun())
@@ -716,6 +760,11 @@ export default {
   },
   destroyed() {
   },
+  beforeRouteLeave(to, from, next) {
+    localStorage.setItem('editData', '')
+    this.$store.commit('editLinkMutations', false)
+    next()
+  }
 }
 </script>
 
@@ -723,9 +772,11 @@ export default {
 #profileAdd {
   width: 100%;
 }
-#profileAdd h3{
+
+#profileAdd h3 {
   font-weight: 540;
 }
+
 #profileAdd .el-container {
   background-color: #bdc0c1;
 }

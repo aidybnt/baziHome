@@ -28,25 +28,16 @@ export default {
   methods: {
     logout() {
       this.logoutLoading = true
-      post('logout', {},
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              'Authorization': 'Bearer ' + localStorage.access_token
-            }
-          }).then(response => {
-        this.logoutLoading = false
-        this.$store.commit("whichLinkMutations", 'profileAdd')
-        this.$message({message: response.data.message, type: 'success'})
-        localStorage.clear()
-        this.$router.push({name: 'Index'})
-      }).catch(error => {
-        this.logoutLoading = false
-        if (error.status === 401) {
-          this.$message({message: '无权操作', type: 'error'})
-        }
-      })
+      post('logout', {}, {headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.access_token}})
+          .then(response => {
+            this.logoutLoading = false
+            this.$store.commit("whichLinkMutations", 'profileAdd')
+            localStorage.clear()
+            this.$router.push({name: 'Index'})
+          })
+          .catch(error => {
+            this.logoutLoading = false
+          })
     }
   }
 }

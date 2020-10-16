@@ -48,6 +48,15 @@
     line-height: 24px;
 }
 
+/*消息盒子宽度*/
+.profileBox {
+    width: 300px !important;
+}
+
+.profileBox .el-icon-warning {
+    color: red !important;
+}
+
 /*适配移动*/
 @media screen and (max-width: 768px) {
     .profile-foot {

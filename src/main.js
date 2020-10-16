@@ -60,6 +60,7 @@ import {
   // TimeSelect,
   // TimePicker,
   // Popover,
+  // Popconfirm,
   // Tooltip,
   // Breadcrumb,
   // BreadcrumbItem,
@@ -104,7 +105,7 @@ import {
   // PageHeader,
   // CascaderPanel,
   Loading,
-  // MessageBox,
+  MessageBox,
   Message,
   // Notification,
   Drawer,
@@ -143,6 +144,7 @@ Vue.use(TableColumn);
 // Vue.use(TimeSelect);
 // Vue.use(TimePicker);
 // Vue.use(Popover);
+// Vue.use(Popconfirm);
 // Vue.use(Tooltip);
 // Vue.use(Breadcrumb);
 // Vue.use(BreadcrumbItem);
@@ -192,7 +194,7 @@ Vue.use(Loading.directive);
 Vue.prototype.$loading = Loading.service;
 // Vue.prototype.$msgbox = MessageBox;
 // Vue.prototype.$alert = MessageBox.alert;
-// Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$confirm = MessageBox.confirm;
 // Vue.prototype.$prompt = MessageBox.prompt;
 // Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;

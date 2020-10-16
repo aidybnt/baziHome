@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       bgc: {
-        backgroundImage: 'url(http://data.com/storage/universe.jpg)'
+        backgroundImage: 'url(https://data.water555.xyz/storage/universe.jpg)'
       }
     }
   }

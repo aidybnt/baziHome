@@ -95,44 +95,29 @@ export default {
                 'password': this.loginForm.pass,
                 'user_ip': localStorage.ip
               },
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
+              {headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}})
+              .then(response => {
+                this.loginLoading = false
+                if (response.status === 200) {
+                  //本地存储
+                  localStorage.access_token = response.data.data.access_token
+                  localStorage.id = response.data.user.id
+                  localStorage.username = response.data.user.username
+                  localStorage.TopLogoPath = response.data.user.TopLogoPath
+                  localStorage.TopLogo = response.data.user.TopLogo
+                  localStorage.avatar = response.data.user.avatar
+                  localStorage.avatarPath = response.data.user.avatarPath
+                  localStorage.user_type = response.data.user.user_type
+                  localStorage.APP_URL = response.data.user.APP_URL
+                  localStorage.requestState = 1
+                  //登陆成功
+                  this.$router.push({name: 'profileAdd',})
                 }
-              }).then(response => {
-            if (response.status === 200) {
-              this.$message({message: response.data.message, type: 'success'});
-              this.loginLoading = false
-
-              //本地存储
-              localStorage.access_token = response.data.data.access_token
-              localStorage.id = response.data.user.id
-              localStorage.username = response.data.user.username
-              localStorage.TopLogoPath = response.data.user.TopLogoPath
-              localStorage.TopLogo = response.data.user.TopLogo
-              localStorage.avatar = response.data.user.avatar
-              localStorage.avatarPath = response.data.user.avatarPath
-              localStorage.user_type = response.data.user.user_type
-              localStorage.APP_URL = response.data.user.APP_URL
-              //登陆成功
-              this.$router.push({name: 'profileAdd',})
-            }
-            this.loginLoading = false
-          }).catch(error => {
-            this.loginLoading = false
-            if (error.status === 403) {
-              this.loading = false
-              this.$message({message: error.data.message, type: 'error'});
-            }
-            if (error.status === 500) {
-              this.$message({message: '服务器错误', type: 'error'})
-            }
-            //超时处理
-            if (error === 'timeout') {
-              this.$message({message: '请求超时，请重试，或检查网络。', type: 'error'});
-            }
-          })
+                this.loginLoading = false
+              })
+              .catch(error => {
+                this.loginLoading = false
+              })
         } else {
           return false;
         }

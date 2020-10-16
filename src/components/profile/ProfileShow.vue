@@ -7,17 +7,20 @@
       <el-aside class="profile-aside">
         <el-menu style="position:fixed;">
           <router-link v-for="(item, index) in menu" :key="index" :to="index">
-            <el-menu-item @click="setLink(index)" v-if="index == isActive" class="leftLinkBgc">
+            <el-menu-item @click="setLink(index)" v-if="index == isActive" :class="leftLinkBgc">
               <i class="el-icon-arrow-right"></i>{{ item }}
             </el-menu-item>
             <el-menu-item @click="setLink(index)" v-else>
               <i class="el-icon-arrow-right"></i>{{ item }}
             </el-menu-item>
           </router-link>
+          <div v-if="this.$store.state.editLink" class="editHover">
+            <i class="el-icon-setting"></i>{{ profileEdit }}
+          </div>
         </el-menu>
       </el-aside>
 
-      <router-view></router-view>
+      <router-view ref="profileList"></router-view>
 
     </el-container>
 
@@ -31,6 +34,7 @@
 import ProfileShowHead from "@/components/profile/ProfileShowHead";
 import ProfileShowFoot from "@/components/profile/ProfileShowFoot";
 import Foot from "@/components/common/Foot";
+import {post} from "@/utils/request";
 
 export default {
   name: "ProfileShow",
@@ -42,9 +46,11 @@ export default {
         'profileList': '命盘列表',
         'profileConfig': '个人资料',
       },
+      'profileEdit': '编辑命盘',
       height: {
         height: '76px'
-      }
+      },
+      leftLinkBgc: 'leftLinkBgc',
     }
   },
   created() {
@@ -53,7 +59,7 @@ export default {
   computed: {
     isActive() {
       return this.$route.path.replace('/', '');
-    }
+    },
   },
   methods: {
     headHeightChange(imgHeight) {
@@ -62,6 +68,18 @@ export default {
     setLink(index) {
       this.$store.commit("whichLinkMutations", index)
     }
+  },
+  watch: {
+    deep: true,
+    immediate: true,
+    '$store.state.editLink': function () {
+      if (this.$store.state.editLink) {
+        this.leftLinkBgc = ''
+      }
+      if (!this.$store.state.editLink) {
+        this.leftLinkBgc = 'leftLinkBgc'
+      }
+    },
   },
 }
 </script>
@@ -91,6 +109,18 @@ export default {
 
 .el-menu-item {
   padding-right: 40px;
+}
+
+.editHover {
+  color: white;
+  background-color: #f60;
+  padding: 18px 0 18px 21px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.editHover i {
+  margin-right: 12px;
 }
 
 @import "~@/assets/css/profile.css";
