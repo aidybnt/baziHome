@@ -1,11 +1,11 @@
 <template>
   <div style="width: 100%;">
     <el-container style="height: 75vh;">
+      <!--查询------------------------------------------------------------------------------------------->
       <el-header style="height: auto !important; margin-top: 24px">
         <el-row>
           <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="6">
             <div class="grid-content bg-purple">
-              <!--查询-->
               <el-input @input="changeInput" :placeholder="placeholder" v-model="queryInput" clearable class="input-with-select">
                 <el-select @change="changeSelect" v-model="select" clearable slot="prepend" placeholder="可选">
                   <el-option label="年" value="year"></el-option>
@@ -32,7 +32,7 @@
       <!--数据列表---------------------------------------------------------------------------------------->
       <el-main>
         <el-table
-            height="81%"
+            :height="tableHeight"
             :data="tableData"
             v-loading="loading"
             element-loading-text="拼命加载中"
@@ -45,29 +45,27 @@
           </el-table-column>
           <el-table-column prop="call" label="称呼" width="90"></el-table-column>
           <el-table-column prop="sex" label="性别" width="50"></el-table-column>
-          <el-table-column prop="name" label="姓名" width="90"></el-table-column>
+          <el-table-column prop="name" v-if="isClose" label="姓名" width="90"></el-table-column>
           <el-table-column prop="bak1" label="出生时间" width="150"></el-table-column>
-          <el-table-column prop="born" label="出生地" width="90"></el-table-column>
-          <el-table-column prop="area" label="常住区域" width="90"></el-table-column>
-          <el-table-column prop="type" label="本命特征" min-width="240">
+          <el-table-column prop="born" v-if="isClose" label="出生地" width="90"></el-table-column>
+          <el-table-column prop="area" v-if="isClose" label="常住区域" width="90"></el-table-column>
+          <el-table-column prop="type" v-if="isClose" label="本命特征" min-width="240">
             <template slot-scope="scope">
               <div class="typeClass" v-for="(item, index) in types(tableData[scope.$index].type)" :key="index">
                 {{ item }}
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="desc" label="备注"></el-table-column>
-          <el-table-column prop="created_at" label="添加日期" width="160" :formatter="rTime"></el-table-column>
-          <el-table-column label="操作" :width="controlWidth" fixed="right">
+          <el-table-column prop="desc" v-if="isClose" label="备注"></el-table-column>
+          <el-table-column prop="created_at" v-if="isClose" label="添加日期" width="160" :formatter="rTime"></el-table-column>
+          <el-table-column label="操作" fixed="right" :width="controlWidth">
             <template slot-scope="scope">
               <el-button style="margin-right: 3px" type="primary" size="small" @click.stop="edit(scope.$index)">修改</el-button>
               <el-button type="danger" size="small" @click.stop="delOpen(scope.$index)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
-        <div>
-        </div>
-        <div style="height: 30px"></div>
+        <div style="height: 24px"></div>
         <!--        分页-->
         <el-pagination
             background
@@ -113,8 +111,10 @@ export default {
       pageSize: 15,
       currentPage: '',
       screenWidth: '',
-      width: 273,
-      controlWidth: '',
+      width: '273',
+      isClose: 'true',
+      controlWidth: '273',
+      tableHeight: '600px',
       loading: false,
       tableData: [],
       select: '',
@@ -131,7 +131,8 @@ export default {
     }
   },
   methods: {
-    changeInput(v) {
+    //刷新和查询切换
+    searchAndRefresh(v) {
       if (v) {
         this.searchButton = '查询'
         this.buttonBgc.backgroundColor = '#67C23A'
@@ -141,6 +142,9 @@ export default {
         this.buttonBgc.backgroundColor = '#409EFF'
         this.icon = 'el-icon-refresh-left'
       }
+    },
+    changeInput(v) {
+      this.searchAndRefresh(v)
     },
     //转换格式
     types(v) {
@@ -154,7 +158,8 @@ export default {
     },
     //点击当前行跳转到HOME
     handleCurrentChange(row) {
-      // console.log(row);
+      sessionStorage.setItem('HomeData', JSON.stringify(row))
+      //显示Home按钮
       if (!this.$store.state.homeLinkButton) {
         this.$store.commit('homeLinkButtonMutations', 1)
       }
@@ -231,6 +236,7 @@ export default {
     },
     //select
     changeSelect(v) {
+      this.searchAndRefresh(v)
       if (v === 'year') {
         v = '出生年份'
       }
@@ -288,15 +294,18 @@ export default {
     }
   },
   mounted() {
-    //表格固定列的宽度
-    this.screenWidth = document.body.clientWidth;
-    if (this.screenWidth < 768) {
-      this.controlWidth = 147
-    } else {
-      this.controlWidth = 273
-    }
-
     this.$nextTick(() => {
+      //表格固定列的宽度
+      this.screenWidth = document.body.clientWidth;
+      if (this.screenWidth < 768) {
+        this.controlWidth = 147
+        this.isClose = false
+        this.tableHeight = '300px'
+      } else {
+        this.controlWidth = 273
+        this.tableHeight = '600px'
+      }
+
       if (Number(localStorage.getItem('page'))) {
         this.$refs.pagination.internalCurrentPage = Number(localStorage.getItem('page'))
       } else {

@@ -11,7 +11,7 @@
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
-    "lunar-javascript": "^1.0.20",
+    "lunar-javascript": "^1.0.26",
     "vue": "^2.6.11",
     "vue-router": "^3.4.5",
     "vuex": "^3.4.0"
@@ -29,6 +29,7 @@
     "px2rem-loader": "^0.1.9",
     "sass": "^1.26.11",
     "sass-loader": "^8.0.2",
+    "vconsole": "^3.3.4",
     "vue-template-compiler": "^2.6.11",
     "webpack-bundle-analyzer": "^3.9.0"
   }

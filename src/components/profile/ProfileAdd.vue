@@ -589,9 +589,10 @@ export default {
                     this.$store.commit('editLinkMutations', false)
                   }
                   this.$router.push('profileList')
-                  if (!this.$store.state.homeLinkButton) {
-                    this.$store.commit('homeLinkButtonMutations', 1)
-                  }
+                  //Add跳转List不显示HOME按钮
+                  // if (!this.$store.state.homeLinkButton) {
+                  //   this.$store.commit('homeLinkButtonMutations', 1)
+                  // }
                 } else {
                   console.log(111);
                 }

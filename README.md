@@ -32,3 +32,10 @@ function refreshRem
 
 打包分析
 npm run build -- --report
+
+1 window.localStorage.getItem( key );
+2 window.localStorage.setItem( key, value );
+3 window.localStorage.removeItem( key );
+4 window.localStorage.clear();
+5 window.localStorage.length;
+6 window.localStorage.key( i );

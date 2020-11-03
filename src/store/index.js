@@ -8,13 +8,13 @@ export default new Vuex.Store({
     dom: '',        //太极图动画
     access_token: '',
     refresh_token: '',
-    whichLink: 'profileAdd',
+    whichLink: 'profileAdd',   //登陆先进入list
     TopLogoPath: '',
     homeHeadLogoHeight: '',
     homeLinkButton: '',
     addRequestList: '',
     totalPages: '',
-    editLink: '',
+    editLink: '',   //控制侧边栏是否显示编辑导航
   },
   //异步操作在这里
   actions: {},

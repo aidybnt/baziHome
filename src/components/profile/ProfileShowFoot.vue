@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="height: 30px"></div>
+    <div style="height: 66px"></div>
     <div class="mobile-profile-foot">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane

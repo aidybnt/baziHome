@@ -5,7 +5,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'lib-flexible'
-
+// import VConsole from 'vconsole';
+//
+// Vue.prototype.$vconsole = new VConsole();
 const {Solar, Lunar, HolidayUtil} = require('lunar-javascript')
 Object.defineProperty(Vue.prototype, 'Solar', {value: Solar});
 Object.defineProperty(Vue.prototype, 'Lunar', {value: Lunar});
